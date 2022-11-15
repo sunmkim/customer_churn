@@ -17,8 +17,7 @@ Udacity project to train a model that predicts customer churn for a bank.
 ├── images                             # EDA results 
 │   ├── eda
 │   └── results
-├── logs                               # Log files are here
-└── models                             # Model (.pkl) files
+└── logs                               # Log files are here
 ```
 
 ## Running Files

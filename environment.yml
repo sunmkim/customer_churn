@@ -12,4 +12,5 @@ dependencies:
   - matplotlib==3.3.4
   - seaborn==0.11.2
   - pylint==2.7.4
+  - pytest==6.2
   - autopep8==1.5.6

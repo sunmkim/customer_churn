@@ -3,22 +3,21 @@ Author: Sun Kim
 Module to train churn model and save results
 """
 
-
-# import libraries
-import seaborn as sns
-from sklearn.metrics import plot_roc_curve, classification_report
-from sklearn.model_selection import GridSearchCV
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import train_test_split
-import matplotlib.pyplot as plt
-import numpy as np
-import pandas as pd
-import logging
 import joblib
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.model_selection import GridSearchCV
+from sklearn.metrics import plot_roc_curve, classification_report
+import seaborn as sns
+import logging
 import os
 os.environ['QT_QPA_PLATFORM'] = 'offscreen'
 
+# import libraries
 sns.set()
 
 
@@ -357,7 +356,7 @@ def train_models(X_train, X_test, y_train, y_test):
     save_roc_plots(X_test, y_test, lrc, cv_rfc)
 
     # save feature importance in results dir
-    feature_importance_plot(model=cv_rfc, 
+    feature_importance_plot(model=cv_rfc,
                             X_data=pd.concat([X_test, X_train]),
                             output_pth='./images/results')
 
