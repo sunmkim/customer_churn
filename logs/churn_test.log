@@ -1,28 +1,29 @@
-2022-11-16 06:20:14,784 [INFO] - import_data - Reading from file ./data/bank_data.csv
-2022-11-16 06:20:14,826 [INFO] - import_data - Bank data successfully loaded as dataframe
-2022-11-16 06:20:14,826 [INFO] - test_import - Testing import_data: SUCCESS
-2022-11-16 06:20:14,826 [INFO] - test_eda - Testing perform_eda on churn_histogram.png: SUCCESS
-2022-11-16 06:20:14,826 [INFO] - test_eda - Testing perform_eda on customer_age_distribution.png: SUCCESS
-2022-11-16 06:20:14,826 [INFO] - test_eda - Testing perform_eda on marital_status.png: SUCCESS
-2022-11-16 06:20:14,827 [INFO] - test_eda - Testing perform_eda on total_trans_hist.png: SUCCESS
-2022-11-16 06:20:14,827 [INFO] - test_eda - Testing perform_eda on heatmap.png: SUCCESS
-2022-11-16 06:20:14,827 [INFO] - encoder_helper - Encoding categorical columns...
-2022-11-16 06:20:14,972 [INFO] - encoder_helper - Encoding Gender successfully completed!
-2022-11-16 06:20:15,067 [INFO] - encoder_helper - Encoding Education_Level successfully completed!
-2022-11-16 06:20:15,166 [INFO] - encoder_helper - Encoding Marital_Status successfully completed!
-2022-11-16 06:20:15,263 [INFO] - encoder_helper - Encoding Income_Category successfully completed!
-2022-11-16 06:20:15,359 [INFO] - encoder_helper - Encoding Card_Category successfully completed!
-2022-11-16 06:20:15,360 [INFO] - test_encoder_helper - SUCCESS: Categorical columns correctly encoded.
-2022-11-16 06:20:15,360 [INFO] - encoder_helper - Encoding categorical columns...
-2022-11-16 06:20:15,458 [INFO] - encoder_helper - Encoding Gender successfully completed!
-2022-11-16 06:20:15,557 [INFO] - encoder_helper - Encoding Education_Level successfully completed!
-2022-11-16 06:20:15,651 [INFO] - encoder_helper - Encoding Marital_Status successfully completed!
-2022-11-16 06:20:15,746 [INFO] - encoder_helper - Encoding Income_Category successfully completed!
-2022-11-16 06:20:15,842 [INFO] - encoder_helper - Encoding Card_Category successfully completed!
-2022-11-16 06:20:15,853 [INFO] - test_perform_feature_engineering - SUCCESS: Train test successfully splitted.
-2022-11-16 06:20:15,853 [INFO] - train_models - Beginning model training...
-2022-11-16 06:26:24,832 [INFO] - train_models - Models successfully trained!
-2022-11-16 06:26:25,973 [INFO] - classification_report_image - Saved classification report for random forest model at `images/results/randomforest_results.png`
-2022-11-16 06:26:26,134 [INFO] - classification_report_image - Saved classification report for logistic model at `images/results/logistic_results.png`
-2022-11-16 06:26:26,434 [INFO] - save_roc_plots - Saved ROC plot at `images/results/roc_curve.png`
-2022-11-16 06:26:26,745 [INFO] - test_train_models - SUCCESS: Models successfully saved!
+2022-11-16 07:22:40,282 [INFO] - <module> - Begin testing churn_library...
+2022-11-16 07:22:40,283 [INFO] - import_data - Reading from file ./data/bank_data.csv
+2022-11-16 07:22:40,386 [INFO] - import_data - Bank data successfully loaded as dataframe
+2022-11-16 07:22:40,387 [INFO] - test_import - Testing import_data: SUCCESS
+2022-11-16 07:22:40,387 [INFO] - test_eda - Testing perform_eda: SUCCESS
+2022-11-16 07:22:40,387 [INFO] - encoder_helper - Encoding categorical columns...
+2022-11-16 07:22:40,537 [INFO] - encoder_helper - Encoding Gender successfully completed!
+2022-11-16 07:22:40,650 [INFO] - encoder_helper - Encoding Education_Level successfully completed!
+2022-11-16 07:22:40,880 [INFO] - encoder_helper - Encoding Marital_Status successfully completed!
+2022-11-16 07:22:41,005 [INFO] - encoder_helper - Encoding Income_Category successfully completed!
+2022-11-16 07:22:41,149 [INFO] - encoder_helper - Encoding Card_Category successfully completed!
+2022-11-16 07:22:41,149 [INFO] - test_encoder_helper - Testing encoder_helper: SUCCESS
+2022-11-16 07:22:41,149 [INFO] - encoder_helper - Encoding categorical columns...
+2022-11-16 07:22:41,379 [INFO] - encoder_helper - Encoding Gender successfully completed!
+2022-11-16 07:22:41,621 [INFO] - encoder_helper - Encoding Education_Level successfully completed!
+2022-11-16 07:22:41,753 [INFO] - encoder_helper - Encoding Marital_Status successfully completed!
+2022-11-16 07:22:41,878 [INFO] - encoder_helper - Encoding Income_Category successfully completed!
+2022-11-16 07:22:41,993 [INFO] - encoder_helper - Encoding Card_Category successfully completed!
+2022-11-16 07:22:42,001 [INFO] - test_perform_feature_engineering - Testing perform_feature_engineering: SUCCESS
+2022-11-16 07:22:42,001 [INFO] - train_models - Beginning model training...
+2022-11-16 07:29:32,209 [INFO] - train_models - Models successfully trained!
+2022-11-16 07:29:33,792 [INFO] - classification_report_image - Saved classification report for random forest model at `images/results/randomforest_results.png`
+2022-11-16 07:29:34,002 [INFO] - classification_report_image - Saved classification report for logistic model at `images/results/logistic_results.png`
+2022-11-16 07:29:34,370 [INFO] - save_roc_plots - Saved ROC plot at `images/results/roc_curve.png`
+2022-11-16 07:29:34,752 [INFO] - test_train_models - Testing train_models: SUCCESS
+2022-11-16 07:29:34,752 [INFO] - test_classification_report_image - Testing classification_report_image: SUCCESS
+2022-11-16 07:29:34,752 [INFO] - test_save_roc_plots - Testing save_roc_plots: SUCCESS
+2022-11-16 07:29:34,753 [INFO] - test_feature_importance_plot - Testing feature_importance_plot: SUCCESS
+2022-11-16 07:29:34,753 [INFO] - <module> - Testing completed!
