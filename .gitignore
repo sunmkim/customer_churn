@@ -1,0 +1,9 @@
+__pycache__/
+*.py[cod]
+*.so
+*.pkl
+.DS_Store
+bin/
+lib
+lib64
+Guide.ipynb
