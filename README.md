@@ -39,3 +39,10 @@ Finally, run the main training code:
 ```
 python churn_library.py
 ```
+
+To complete unit tests, run the following command:
+```
+python churn_script_logging_and_tests.py
+```
+
+This should create a test log file called `churn_test.log` that indicaes whether your script passed the tests.
