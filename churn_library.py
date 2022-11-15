@@ -5,20 +5,50 @@ Module to train churn model and save results
 
 
 # import libraries
-import os
-os.environ['QT_QPA_PLATFORM']='offscreen'
-
-import joblib
-import logging
-import pandas as pd
-import numpy as np
-import matplotlib.pyplot as plt
-import seaborn as sns; sns.set()
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV
+import seaborn as sns
 from sklearn.metrics import plot_roc_curve, classification_report
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+import numpy as np
+import pandas as pd
+import logging
+import joblib
+import os
+os.environ['QT_QPA_PLATFORM'] = 'offscreen'
+
+sns.set()
+
+
+CATEGORY_LST = [
+    'Gender',
+    'Education_Level',
+    'Marital_Status',
+    'Income_Category',
+    'Card_Category']
+
+KEEP_COLS = [
+    'Customer_Age',
+    'Dependent_count',
+    'Months_on_book',
+    'Total_Relationship_Count',
+    'Months_Inactive_12_mon',
+    'Contacts_Count_12_mon',
+    'Credit_Limit',
+    'Total_Revolving_Bal',
+    'Avg_Open_To_Buy',
+    'Total_Amt_Chng_Q4_Q1',
+    'Total_Trans_Amt',
+    'Total_Trans_Ct',
+    'Total_Ct_Chng_Q4_Q1',
+    'Avg_Utilization_Ratio',
+    'Gender_Churn',
+    'Education_Level_Churn',
+    'Marital_Status_Churn',
+    'Income_Category_Churn',
+    'Card_Category_Churn']
 
 
 def import_data(pth):
@@ -29,11 +59,12 @@ def import_data(pth):
             pth: a path to the csv
     output:
             df: pandas dataframe
-    '''	
+    '''
 
     logging.info(f'Reading from file {pth}')
     df = pd.read_csv(pth)
-    df['Churn'] = df['Attrition_Flag'].apply(lambda val: 0 if val == "Existing Customer" else 1)
+    df['Churn'] = df['Attrition_Flag'].apply(
+        lambda val: 0 if val == "Existing Customer" else 1)
     logging.info('Bank data successfully loaded as dataframe')
     return df
 
@@ -50,41 +81,45 @@ def perform_eda(df):
 
     # exit function with error on empty dataframe
     if df.empty:
-        logging.error('Input dataframe is empty! Please input a valid dataframe')
+        logging.error(
+            'Input dataframe is empty! Please input a valid dataframe')
         return
 
     # churn plot
-    plt.figure(figsize=(20,10)) 
+    plt.figure(figsize=(20, 10))
     df['Churn'].hist()
     plt.savefig('./images/eda/churn_histogram.png')
-    logging.info('Churn histogram saved to images directory as `churn_histogram.png`')
+    logging.info(
+        'Churn histogram saved to images directory as `churn_histogram.png`')
 
     # age distribution plot
-    plt.figure(figsize=(20,10)) 
+    plt.figure(figsize=(20, 10))
     df['Customer_Age'].hist()
     plt.savefig('./images/eda/customer_age_distribution.png')
-    logging.info('Customer age distribution plot saved to images directory as `customer_age_distribution.png`')
+    logging.info(
+        'Customer age distribution plot saved to images directory as `customer_age_distribution.png`')
 
     # marital status bar plot
-    plt.figure(figsize=(20,10)) 
+    plt.figure(figsize=(20, 10))
     df.Marital_Status.value_counts('normalize').plot(kind='bar')
     plt.savefig('./images/eda/marital_status.png')
-    logging.info('Marital status plot bar plot saved to images directory as `marital_status.png`')
+    logging.info(
+        'Marital status plot bar plot saved to images directory as `marital_status.png`')
 
     # total trans histogram
-    plt.figure(figsize=(20,10))
+    plt.figure(figsize=(20, 10))
     sns.histplot(df['Total_Trans_Ct'], stat='density', kde=True)
     plt.savefig('./images/eda/total_trans_hist.png')
-    logging.info('Total trans histogram saved to images directory as `total_trans_hist.png`')
+    logging.info(
+        'Total trans histogram saved to images directory as `total_trans_hist.png`')
 
     # features heatmap
-    plt.figure(figsize=(20,10)) 
-    sns.heatmap(df.corr(), annot=False, cmap='Dark2_r', linewidths = 2)
+    plt.figure(figsize=(20, 10))
+    sns.heatmap(df.corr(), annot=False, cmap='Dark2_r', linewidths=2)
     plt.savefig('./images/eda/heatmap.png')
     logging.info('Heatmap saved to images directory as `heatmap.png`')
 
     plt.close()
-
 
 
 def encoder_helper(df, category_lst, response='Churn'):
@@ -115,7 +150,6 @@ def encoder_helper(df, category_lst, response='Churn'):
     return df
 
 
-
 def perform_feature_engineering(df, response='Churn'):
     '''
     input:
@@ -129,23 +163,14 @@ def perform_feature_engineering(df, response='Churn'):
               y_test: y testing data
     '''
 
-    category_lst = ['Gender', 'Education_Level', 'Marital_Status', 'Income_Category', 'Card_Category']
-    keep_cols = ['Customer_Age', 'Dependent_count', 'Months_on_book',
-             'Total_Relationship_Count', 'Months_Inactive_12_mon',
-             'Contacts_Count_12_mon', 'Credit_Limit', 'Total_Revolving_Bal',
-             'Avg_Open_To_Buy', 'Total_Amt_Chng_Q4_Q1', 'Total_Trans_Amt',
-             'Total_Trans_Ct', 'Total_Ct_Chng_Q4_Q1', 'Avg_Utilization_Ratio',
-             'Gender_Churn', 'Education_Level_Churn', 'Marital_Status_Churn', 
-             'Income_Category_Churn', 'Card_Category_Churn']
-    
-    df = encoder_helper(df, category_lst)
-  
+    df = encoder_helper(df, CATEGORY_LST)
+
     y = df[response]
-    X = df[keep_cols]
-    X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= 0.3, random_state=42)
+    X = df[KEEP_COLS]
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.3, random_state=42)
 
     return X_train, X_test, y_train, y_test
-
 
 
 def save_roc_plots(X_test, y_test, lr_model, rf_model):
@@ -166,12 +191,15 @@ def save_roc_plots(X_test, y_test, lr_model, rf_model):
     #  plots
     plt.figure(figsize=(15, 8))
     ax = plt.gca()
-    rfc_disp = plot_roc_curve(rf_model.best_estimator_, X_test, y_test, ax=ax, alpha=0.8)
+    rfc_disp = plot_roc_curve(
+        rf_model.best_estimator_,
+        X_test,
+        y_test,
+        ax=ax,
+        alpha=0.8)
     lrc_plot.plot(ax=ax, alpha=0.8)
     plt.savefig('./images/results/roc_curve.png')
     logging.info('Saved ROC plot at `images/results/roc_curve.png`')
-
-
 
 
 def classification_report_image(y_train,
@@ -209,7 +237,8 @@ def classification_report_image(y_train,
             'fontsize': 10}, fontproperties='monospace')
     plt.axis('off')
     plt.savefig('./images/results/randomforest_results.png')
-    logging.info('Saved classification report for random forest model at `images/results/randomforest_results.png`')
+    logging.info(
+        'Saved classification report for random forest model at `images/results/randomforest_results.png`')
 
     plt.close()
 
@@ -229,10 +258,10 @@ def classification_report_image(y_train,
         'fontsize': 10}, fontproperties='monospace')
     plt.axis('off')
     plt.savefig('./images/results/logistic_results.png')
-    logging.info('Saved classification report for logistic model at `images/results/logistic_results.png`')
+    logging.info(
+        'Saved classification report for logistic model at `images/results/logistic_results.png`')
 
     plt.close()
-
 
 
 def feature_importance_plot(model, X_data, output_pth):
@@ -246,7 +275,7 @@ def feature_importance_plot(model, X_data, output_pth):
     output:
              None
     '''
-    
+
     # Calculate feature importances
     importances = model.best_estimator_.feature_importances_
     # Sort feature importances in descending order
@@ -256,7 +285,7 @@ def feature_importance_plot(model, X_data, output_pth):
     names = [X_data.columns[i] for i in indices]
 
     # Create plot
-    plt.figure(figsize=(20,5))
+    plt.figure(figsize=(20, 5))
 
     # Create plot title
     plt.title("Feature Importance")
@@ -270,8 +299,6 @@ def feature_importance_plot(model, X_data, output_pth):
 
     plt.savefig(f'{output_pth}/feature_importance.png')
     plt.close()
-
-
 
 
 def train_models(X_train, X_test, y_train, y_test):
@@ -290,14 +317,15 @@ def train_models(X_train, X_test, y_train, y_test):
     # grid search
     rfc = RandomForestClassifier(random_state=42)
     # Use a different solver if the default 'lbfgs' fails to converge
-    # Reference: https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
+    # Reference:
+    # https://scikit-learn.org/stable/modules/linear_model.html#logistic-regression
     lrc = LogisticRegression(solver='lbfgs', max_iter=3000)
 
-    param_grid = { 
+    param_grid = {
         'n_estimators': [200, 500],
         'max_features': ['auto', 'sqrt'],
-        'max_depth' : [4,5,100],
-        'criterion' :['gini', 'entropy']
+        'max_depth': [4, 5, 100],
+        'criterion': ['gini', 'entropy']
     }
 
     cv_rfc = GridSearchCV(estimator=rfc, param_grid=param_grid, cv=5)
@@ -329,11 +357,13 @@ def train_models(X_train, X_test, y_train, y_test):
     save_roc_plots(X_test, y_test, lrc, cv_rfc)
 
     # save feature importance in results dir
-    feature_importance_plot(model=cv_rfc, X_data=pd.concat([X_test, X_train]), output_pth='./images/results')
-    
+    feature_importance_plot(model=cv_rfc, 
+                            X_data=pd.concat([X_test, X_train]),
+                            output_pth='./images/results')
 
 
 def main():
+    # set up logging
     logging.basicConfig(
         filename='./logs/churn_logs.log',
         level=logging.INFO,
@@ -341,7 +371,9 @@ def main():
         format='%(asctime)s [%(levelname)s] - %(funcName)s - %(message)s'
     )
 
+    # import bank data
     bank_data = import_data(r"./data/bank_data.csv")
+
     perform_eda(bank_data)
     X_train, X_test, y_train, y_test = perform_feature_engineering(bank_data)
     train_models(X_train, X_test, y_train, y_test)

@@ -6,7 +6,20 @@
 Udacity project to train a model that predicts customer churn for a bank.
 
 ## Files and data description
-Overview of the files and data present in the root directory. 
+```
+.
+├── environment.yml                    # Conda environment
+├── churn_library.py                   # Scrpt to train models on bank data
+├── churn_script_logging_and_tests.py  # Testing and logging our script
+├── README.md           
+├── data                 
+│   └── bank_data.csv                  # Data to train/test model
+├── images                             # EDA results 
+│   ├── eda
+│   └── results
+├── logs                               # Log files are here
+└── models                             # Model (.pkl) files
+```
 
 ## Running Files
 We will use a conda environment to install the required packages.
@@ -19,7 +32,7 @@ conda env create --file environment.yml
 Second, activate the conda environment:
 
 ```
-conda activatte customer_churn_env
+conda activate customer_churn_env
 ```
 
 Finally, run the main training code:
