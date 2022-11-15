@@ -1,0 +1,18 @@
+2022-11-16 04:06:21,963 [INFO] - import_data - Reading from file ./data/bank_data.csv
+2022-11-16 04:06:22,026 [INFO] - import_data - Bank data successfully loaded as dataframe
+2022-11-16 04:06:22,515 [INFO] - perform_eda - Churn histogram saved to images directory as `churn_histogram.png`
+2022-11-16 04:06:22,723 [INFO] - perform_eda - Customer age distribution plot saved to images directory as `customer_age_distribution.png`
+2022-11-16 04:06:22,904 [INFO] - perform_eda - Marital status plot bar plot saved to images directory as `marital_status.png`
+2022-11-16 04:06:23,333 [INFO] - perform_eda - Total trans histogram saved to images directory as `total_trans_hist.png`
+2022-11-16 04:06:23,846 [INFO] - perform_eda - Heatmap saved to images directory as `heatmap.png`
+2022-11-16 04:06:23,849 [INFO] - encoder_helper - Encoding categorical columns...
+2022-11-16 04:06:23,988 [INFO] - encoder_helper - Encoding Gender successfully completed!
+2022-11-16 04:06:24,127 [INFO] - encoder_helper - Encoding Education_Level successfully completed!
+2022-11-16 04:06:24,263 [INFO] - encoder_helper - Encoding Marital_Status successfully completed!
+2022-11-16 04:06:24,394 [INFO] - encoder_helper - Encoding Income_Category successfully completed!
+2022-11-16 04:06:24,512 [INFO] - encoder_helper - Encoding Card_Category successfully completed!
+2022-11-16 04:06:24,518 [INFO] - train_models - Beginning model training...
+2022-11-16 04:13:11,348 [INFO] - train_models - Models successfully trained!
+2022-11-16 04:13:12,282 [INFO] - classification_report_image - Saved classification report for random forest model at `images/results/randomforest_results.png`
+2022-11-16 04:13:12,526 [INFO] - classification_report_image - Saved classification report for logistic model at `images/results/logistic_results.png`
+2022-11-16 04:13:12,969 [INFO] - save_roc_plots - Saved ROC plot at `images/results/roc_curve.png`
