@@ -1,6 +1,8 @@
 """
 Author: Sun Kim
-Module to train churn model and save results
+Date: 2022-11-16
+
+Module to train churn model and save results.
 """
 
 import joblib
